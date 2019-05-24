@@ -1109,15 +1109,14 @@ class Tick(Widget):
         tick_index, tick_pos, tick_sc = \
             self._get_index_n_pos_n_scale(tl, True)
         if tick_sc < self.min_space:
-            raise StopIteration
+            return
         condition = self._index_condition(tl, True)
         pos0 = tl.y if tl.is_vertical() else tl.x
         while condition(tick_index):
             yield tick_pos + pos0, tick_index
             tick_pos += tick_sc
-            tick_index += tl.dir    
-        raise StopIteration
-    
+            tick_index += tl.dir
+
     def display(self, tickline):
         '''main method for displaying Ticks. This is called after every
         scatter transform. Uses :attr:`draw` to handle actual drawing.
